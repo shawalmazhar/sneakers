@@ -44,6 +44,45 @@ header {
 .icon-btn { background: none; border: none; color: white; cursor: pointer; display: flex; position: relative; }
 .cart-badge { position: absolute; top: -8px; right: -8px; background: black; color: white; font-size: 0.7rem; font-weight: bold; border-radius: 50%; padding: 2px 6px; }
 
+/* Hamburger Menu */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1100;
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
 /* Subpages Container */
 .page-container {
   min-height: 100vh;
@@ -237,14 +276,61 @@ footer { padding: 60px; background: rgba(0,0,0,0.3); border-top: 1px solid var(-
 }
 
 @media (max-width: 768px) {
-  header { padding: 15px 20px; flex-direction: column; gap: 15px; }
-  .nav-links { gap: 15px; overflow-x: auto; width: 100%; justify-content: center; padding-bottom: 5px; }
-  .hero-headline { font-size: 3rem; }
+  header { padding: 15px 25px; flex-direction: row; gap: 0; background: rgba(0,0,0,0.2); }
+  
+  .hamburger-btn { display: block; }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    background: #f83600;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    transition: right 0.4s ease;
+    z-index: 1050;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .nav-links.open {
+    right: 0;
+  }
+  
+  .nav-links button {
+    font-size: 2rem;
+    color: white;
+  }
+
+  .hero-headline { font-size: 3rem; margin-top: 20px; }
   .hero-subheadline { font-size: 1.1rem; }
-  .home-container { flex-direction: column-reverse; height: auto; display: block; }
-  .hero-right { position: relative; width: 100%; height: 400px; order: 1; }
-  .content-sections { width: 100%; order: 2; padding: 20px; }
-  .section { min-height: auto; padding: 60px 0; }
+  
+  .home-container { 
+    display: flex;
+    flex-direction: column; 
+    height: auto; 
+  }
+  
+  .hero-right { 
+    position: relative; 
+    width: 100%; 
+    height: 350px; 
+    top: 0;
+    order: -1; /* Forces shoe to top */
+    margin-top: 80px;
+  }
+  
+  .content-sections { 
+    width: 100%; 
+    padding: 20px 30px;
+    order: 1;
+  }
+  
+  .section { min-height: auto; padding: 40px 0; }
   .product-grid { grid-template-columns: 1fr; }
   .product-detail-modal { flex-direction: column !important; width: 90% !important; max-height: 90vh; overflow-y: auto; gap: 20px !important; padding: 40px 20px !important; }
   .detail-img { height: 250px !important; width: 100% !important; }

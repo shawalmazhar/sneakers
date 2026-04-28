@@ -99,21 +99,29 @@ function Scene() {
 // --- UI COMPONENTS ---
 function Header() {
   const { currentView, setCurrentView, cartItems, setCartOpen, setAuthOpen } = useStore();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNav = (view) => {
+    setCurrentView(view);
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header>
+    <header className={mobileMenuOpen ? 'mobile-nav-active' : ''}>
       <div className="logo" onClick={() => setCurrentView('home')} style={{ cursor: 'pointer' }}>SM</div>
-      <nav className="nav-links">
+      
+      <nav className={`nav-links ${mobileMenuOpen ? 'open' : ''}`}>
         {['home', 'shop', 'about', 'contact'].map(view => (
           <button 
             key={view} 
             className={currentView === view ? 'active' : ''}
-            onClick={() => setCurrentView(view)}
+            onClick={() => handleNav(view)}
           >
             {view.charAt(0).toUpperCase() + view.slice(1)}
           </button>
         ))}
       </nav>
+
       <div className="header-icons">
         <button className="icon-btn" onClick={() => setAuthOpen(true)}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -121,6 +129,13 @@ function Header() {
         <button className="icon-btn" onClick={() => setCartOpen(true)}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
           {cartItems.length > 0 && <span className="cart-badge">{cartItems.length}</span>}
+        </button>
+        <button className="hamburger-btn" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <div className={`hamburger-icon ${mobileMenuOpen ? 'open' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </div>
     </header>
